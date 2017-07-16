@@ -103,6 +103,20 @@ int main() {
           *
           */
 		  
+		 
+		  double Lf = 2.67;
+		  // predict state in 100ms
+		  //psi = psi - v*delta/Lf*latency;
+		  //v = v + acceleration*latency;
+		  //px = 0 + v*cos(-delta)*latency;
+		  //py = 0 + v*sin(-delta)*latency;
+		  
+          px = v * cos(-delta)*latency;
+          py = v * sin(-delta)*latency;
+          psi = - v / Lf * delta * latency;
+		  v = v + throttle * latency;
+
+		  
 		  //convert waypoints from map coordinates to vehicle coordinates
           int len = ptsx.size();
           Eigen::VectorXd ptsx_n(len);
@@ -127,19 +141,6 @@ int main() {
 		  double epsi = - atan(coeffs[1]);
 
 		  Eigen::VectorXd state(6);
-		 
-		  double Lf = 2.67;
-		  // predict state in 100ms
-		  //psi = psi - v*delta/Lf*latency;
-		  //v = v + acceleration*latency;
-		  //px = 0 + v*cos(-delta)*latency;
-		  //py = 0 + v*sin(-delta)*latency;
-		  
-          px = v * cos(-delta)*latency;
-          py = v * sin(-delta)*latency;
-          psi = - v / Lf * delta * latency;
-		  v = v + throttle * latency;
-
 		  state << px, py, psi, v, cte, epsi;
 		  
 		  auto vars = mpc.Solve(state, coeffs);
