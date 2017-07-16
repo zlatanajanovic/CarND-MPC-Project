@@ -134,7 +134,7 @@ int main() {
 		  
 		  //new test
 		  // predict state in 100ms
-		  psi = psi + v*delta/Lf*latency;
+		  psi = psi + v*delta/mpc.Lf*latency;
 		  v = v + acceleration*latency;
 		  px = px + v*cos(psi)*latency;
 		  py = py + v*sin(psi)*latency;
