@@ -100,8 +100,15 @@ int main() {
           *
           */
 		  
-		  Eigen::VectorXd ptsx_n(ptsx.data());
-		  Eigen::VectorXd ptsy_n(ptsy.data());
+		  //convert waypoints from map coordinates to vehicle coordinates
+          int len = ptsx.size();
+          Eigen::VectorXd ptsx_vehicle_coords(len);
+          Eigen::VectorXd ptsy_vehicle_coords(len);
+          for(int i =0; i < len; i++){
+            ptsx_vehicle_coords[i] = cos(psi) * (ptsx[i] - px) + sin(psi) * (ptsy[i] - py);
+            ptsy_vehicle_coords[i] = -sin(psi) * (ptsx[i] - px) + cos(psi) * (ptsy[i] - py);
+          
+		  }	
 		  
           double steer_value;
           double throttle_value;
@@ -111,12 +118,16 @@ int main() {
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
-		  double cte = polyeval(coeffs, px) - py;
+		  double cte = polyeval(coeffs, 0);
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = psi - atan(coeffs[1]);
+		  double epsi = - atan(coeffs[1]);
 
 		  Eigen::VectorXd state(6);
+		  px = v * latency;
+          py = 0;
+          psi = - v / 2.67 * steer_value * latency;
+		  v = v + throttle_value * latency;
 		  state << px, py, psi, v, cte, epsi;
 		  
 		  auto vars = mpc.Solve(state, coeffs);
