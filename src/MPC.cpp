@@ -266,7 +266,13 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   std::cout << "Cost " << cost << std::endl;
   
   //? only actuator?
+  this->x_vals = {};
+  this->y_vals = {};
+  for(int i = 0; i < N; i++){
+    this->x_vals.push_back(solution.x[x_start + i]);
+    this->y_vals.push_back(solution.x[y_start + i]);
+  }
 
   // Return the first actuator values 
-  return solution;
+  return {solution[delta_start], solution[a_start]};
 }

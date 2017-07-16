@@ -133,8 +133,8 @@ int main() {
 		  
 		  auto vars = mpc.Solve(state, coeffs);
 		  
-		  steer_value = vars[mpc.delta_start];
-		  throttle_value = vars[mpc.a_start];
+		  steer_value = vars[0];
+		  throttle_value = vars[1];
 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
@@ -143,18 +143,11 @@ int main() {
           msgJson["throttle"] = throttle_value;
 
           //Display the MPC predicted trajectory 
-          vector<double> mpc_x_vals;
-          vector<double> mpc_y_vals;
-
-          //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
+          //points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Green line
-		  for(int i =0; i < ptsx_n.size(); i++){
-			mpc_x_vals = vars[x_start+i];
-			mpc_y_vals = vars[y_start+i];
-		  }
 
-          msgJson["mpc_x"] = mpc_x_vals;
-          msgJson["mpc_y"] = mpc_y_vals;
+          msgJson["mpc_x"] = mpc.x_vals;
+          msgJson["mpc_y"] = mpc.y_vals;
 
           //Display the waypoints/reference line
           vector<double> next_x_vals;
