@@ -9,6 +9,16 @@ using CppAD::AD;
 size_t N = 25;
 double dt = 0.05;
 
+// Weights
+const double cte_weight = 1;
+const double epsi_weight = 1;
+const double v_weight = 1;
+const double steer_weight = 50;
+const double throttle_weight = 1;
+const double change_steer_weight = 20000;
+const double change_throttle_weight = 1;
+
+
 // This value assumes the model presented in the classroom is used.
 //
 // It was obtained by measuring the radius formed by running the vehicle in the
@@ -23,7 +33,7 @@ const double Lf = 2.67;
 
 // Both the reference cross track and orientation errors are 0.
 // The reference velocity is set to 40 mph.
-double ref_v = 15;
+double ref_v = 50;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
@@ -58,21 +68,21 @@ class FG_eval {
 
     // The part of the cost based on the reference state.
     for (int t = 0; t < N; t++) {
-      fg[0] += CppAD::pow(vars[cte_start + t], 2);
-      fg[0] += CppAD::pow(vars[epsi_start + t], 2);
-      fg[0] += CppAD::pow(10*(vars[v_start + t] - ref_v), 2);
+      fg[0] += cte_weight * CppAD::pow(vars[cte_start + t], 2);
+      fg[0] += epsi_weight * CppAD::pow(vars[epsi_start + t], 2);
+      fg[0] += v_weight * CppAD::pow(vars[v_start + t] - ref_v, 2);
     }
 
     // Minimize the use of actuators.
     for (int t = 0; t < N - 1; t++) {
-      fg[0] += CppAD::pow(vars[delta_start + t], 2);
-      fg[0] += CppAD::pow(vars[a_start + t], 2);
+      fg[0] += steer_weight * CppAD::pow(vars[delta_start + t], 2);
+      fg[0] += throttle_weight * CppAD::pow(vars[a_start + t], 2);
     }
 
     // Minimize the value gap between sequential actuations.
     for (int t = 0; t < N - 2; t++) {
-      fg[0] += CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
-      fg[0] += CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
+      fg[0] += change_steer_weight * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+      fg[0] += change_throttle_weight * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
     }
 
     //
