@@ -103,20 +103,6 @@ int main() {
           *
           */
 		  
-		 
-		  double Lf = 2.67;
-		  // predict state in 100ms
-		  //psi = psi - v*delta/Lf*latency;
-		  //v = v + acceleration*latency;
-		  //px = 0 + v*cos(-delta)*latency;
-		  //py = 0 + v*sin(-delta)*latency;
-		  
-          px = v * cos(-delta)*latency;
-          py = v * sin(-delta)*latency;
-          psi = - v / Lf * delta * latency;
-		  v = v + throttle * latency;
-
-		  
 		  //convert waypoints from map coordinates to vehicle coordinates
           int len = ptsx.size();
           Eigen::VectorXd ptsx_n(len);
@@ -131,16 +117,29 @@ int main() {
           double throttle_value;
 		  
 		  auto coeffs = polyfit(ptsx_n, ptsy_n, 3);
+
+		  Eigen::VectorXd state(6);
 		  
+		  double Lf = 2.67;
+		  // predict state in 100ms
+		  //psi = psi - v*delta/Lf*latency;
+		  //v = v + acceleration*latency;
+		  //px = 0 + v*cos(-delta)*latency;
+		  //py = 0 + v*sin(-delta)*latency;
+		  
+          px = v * cos(-delta)*latency;
+          py = v * sin(-delta)*latency;
+          psi = - v / Lf * delta * latency;
+		  v = v + throttle * latency;
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
-		  double cte = polyeval(coeffs, 0);
+		  double cte = polyeval(coeffs, px)-py;
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = - atan(coeffs[1]);
-
-		  Eigen::VectorXd state(6);
+		  double epsi = - atan(coeffs[1])+psi;
+		  
+		  
 		  state << px, py, psi, v, cte, epsi;
 		  
 		  auto vars = mpc.Solve(state, coeffs);
