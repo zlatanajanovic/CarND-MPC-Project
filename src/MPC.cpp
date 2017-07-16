@@ -10,13 +10,13 @@ size_t N = 25;
 double dt = 0.05;
 
 // Weights
-const double cte_weight = 1;
+const double cte_weight = 10;
 const double epsi_weight = 1;
 const double v_weight = 1;
-const double steer_weight = 50;
+const double steer_weight = 1;
 const double throttle_weight = 1;
-const double change_steer_weight = 20000;
-const double change_throttle_weight = 1;
+const double change_steer_weight = 1000;
+const double change_throttle_weight = 10;
 
 
 // This value assumes the model presented in the classroom is used.
