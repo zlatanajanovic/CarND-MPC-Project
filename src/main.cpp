@@ -108,8 +108,8 @@ int main() {
           Eigen::VectorXd ptsx_n(len);
           Eigen::VectorXd ptsy_n(len);
           for(int i =0; i < len; i++){
-            ptsx_n[i] = cos(0-psi) * (ptsx[i] - px) + sin(0-psi) * (ptsy[i] - py);
-            ptsy_n[i] = -sin(0-psi) * (ptsx[i] - px) + cos(0-psi) * (ptsy[i] - py);
+            ptsx_n[i] = cos(psi) * (ptsx[i] - px) + sin(psi) * (ptsy[i] - py);
+            ptsy_n[i] = -sin(psi) * (ptsx[i] - px) + cos(psi) * (ptsy[i] - py);
           
 		  }	
 		  
@@ -132,6 +132,7 @@ int main() {
           psi = - v / Lf * delta * latency;
 		  v = v + throttle * latency;
 		  
+		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
 		  double cte = polyeval(coeffs, px)-py;
@@ -139,6 +140,12 @@ int main() {
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
 		  double epsi = - atan(coeffs[1])-psi;
 		  
+		  std::cout << "px    " << px << std::endl;
+		  std::cout << "py    " << py << std::endl;
+		  std::cout << "psi   " << psi << std::endl;
+		  std::cout << "v     " << v << std::endl;
+		  std::cout << "cte   " << cte << std::endl;
+		  std::cout << "cte   " << cte << std::endl;
 		  
 		  state << px, py, psi, v, cte, epsi;
 		  
