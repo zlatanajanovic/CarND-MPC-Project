@@ -70,6 +70,18 @@ int main() {
 
   // MPC is initialized here!
   MPC mpc;
+  
+  //my log
+  std::vector<double> x_vals = {state[0]};
+  std::vector<double> y_vals = {state[1]};
+  std::vector<double> psi_vals = {state[2]};
+  std::vector<double> v_vals = {state[3]};
+  std::vector<double> cte_vals = {state[4]};
+  std::vector<double> epsi_vals = {state[5]};
+  std::vector<double> delta_vals = {};
+  std::vector<double> a_vals = {};
+		  
+		  
 
   h.onMessage([&mpc](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length,
                      uWS::OpCode opCode) {
@@ -100,6 +112,26 @@ int main() {
           */
           double steer_value;
           double throttle_value;
+		  
+		  auto coeffs = polyfit(ptsx, ptsy, 3);
+		  
+		  
+		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
+		  // and subtracting y.
+		  double cte = polyeval(coeffs, x) - y;
+		  // Due to the sign starting at 0, the orientation error is -f'(x).
+		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
+		  double epsi = psi - atan(coeffs[1]);
+
+		  Eigen::VectorXd state(6);
+		  state << px, py, psi, v, cte, epsi;
+		  
+		  auto vars = mpc.Solve(state, coeffs);
+		  
+		  steer_value = vars[6];
+		  throttle_value = vars[7];
+		  
+		  
 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
