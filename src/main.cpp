@@ -127,8 +127,8 @@ int main() {
 		  //px = 0 + v*cos(-delta)*latency;
 		  //py = 0 + v*sin(-delta)*latency;
 		  
-          px = v * cos(delta)*latency;
-          py = v * sin(delta)*latency;
+          px = v * cos(-delta)*latency;
+          py = v * sin(-delta)*latency;
           psi = - v / Lf * delta * latency;
 		  v = v + throttle * latency;
 		  
@@ -137,7 +137,7 @@ int main() {
 		  double cte = polyeval(coeffs, px)-py;
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = - atan(coeffs[1])+psi;
+		  double epsi = - atan(coeffs[1])-psi;
 		  
 		  
 		  state << px, py, psi, v, cte, epsi;
