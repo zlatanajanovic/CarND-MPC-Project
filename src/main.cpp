@@ -157,8 +157,8 @@ int main() {
           // the points in the simulator are connected by a Yellow line
 		  
 		  for(int i =0; i < ptsx_n.size(); i++){
-            next_x.push_back(ptsx_n[i]);
-            next_y.push_back(ptsy_n[i]);
+            next_x_vals.push_back(ptsx_n[i]);
+            next_y_vals.push_back(ptsy_n[i]);
 		  }
 
           msgJson["next_x"] = next_x_vals;
