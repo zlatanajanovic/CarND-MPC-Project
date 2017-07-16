@@ -133,10 +133,8 @@ int main() {
 		  
 		  auto vars = mpc.Solve(state, coeffs);
 		  
-		  steer_value = vars[6];
-		  throttle_value = vars[7];
-		  
-		  
+		  steer_value = vars[mpc.delta_start];
+		  throttle_value = vars[mpc.a_start];
 
           json msgJson;
           // NOTE: Remember to divide by deg2rad(25) before you send the steering value back.
@@ -150,6 +148,10 @@ int main() {
 
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Green line
+		  for(int i =0; i < ptsx_n.size(); i++){
+			mpc_x_vals = vars[x_start+i];
+			mpc_y_vals = vars[y_start+i];
+		  }
 
           msgJson["mpc_x"] = mpc_x_vals;
           msgJson["mpc_y"] = mpc_y_vals;
@@ -160,6 +162,11 @@ int main() {
 
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
+		  
+		  for(int i =0; i < ptsx_n.size(); i++){
+            next_x.push_back(ptsx_n[i]);
+            next_y.push_back(ptsy_n[i]);
+		  }
 
           msgJson["next_x"] = next_x_vals;
           msgJson["next_y"] = next_y_vals;
