@@ -102,11 +102,11 @@ int main() {
 		  
 		  //convert waypoints from map coordinates to vehicle coordinates
           int len = ptsx.size();
-          Eigen::VectorXd ptsx_vehicle_coords(len);
-          Eigen::VectorXd ptsy_vehicle_coords(len);
+          Eigen::VectorXd ptsx_n(len);
+          Eigen::VectorXd ptsy_n(len);
           for(int i =0; i < len; i++){
-            ptsx_vehicle_coords[i] = cos(psi) * (ptsx[i] - px) + sin(psi) * (ptsy[i] - py);
-            ptsy_vehicle_coords[i] = -sin(psi) * (ptsx[i] - px) + cos(psi) * (ptsy[i] - py);
+            ptsx_n[i] = cos(psi) * (ptsx[i] - px) + sin(psi) * (ptsy[i] - py);
+            ptsy_n[i] = -sin(psi) * (ptsx[i] - px) + cos(psi) * (ptsy[i] - py);
           
 		  }	
 		  
