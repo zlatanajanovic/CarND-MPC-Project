@@ -127,14 +127,10 @@ int main() {
 		  double epsi = - atan(coeffs[1]);
 
 		  Eigen::VectorXd state(6);
-		  px = v * latency;
-          py = 0;
-          psi = - v / mpc.Lf * steer_value * latency;
-		  v = v + throttle_value * latency;
-		  
-		  //new test
+		 
+		  double Lf = 2.67;
 		  // predict state in 100ms
-		  psi = psi + v*delta/mpc.Lf*latency;
+		  psi = psi + v*delta/Lf*latency;
 		  v = v + acceleration*latency;
 		  px = px + v*cos(psi)*latency;
 		  py = py + v*sin(psi)*latency;
