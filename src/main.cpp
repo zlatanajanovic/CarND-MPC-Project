@@ -127,9 +127,9 @@ int main() {
 		  //px = 0 + v*cos(-delta)*latency;
 		  //py = 0 + v*sin(-delta)*latency;
 		  
-          px = v * cos(-delta)*latency;
-          py = v * sin(-delta)*latency;
-          psi = - v / Lf * delta * latency;
+          px = v * cos(delta)*latency;
+          py = v * sin(delta)*latency;
+          psi =  v / Lf * delta * latency;
 		  v = v + throttle * latency;
 		  
 		  
@@ -145,7 +145,7 @@ int main() {
 		  std::cout << "psi   " << psi << std::endl;
 		  std::cout << "v     " << v << std::endl;
 		  std::cout << "cte   " << cte << std::endl;
-		  std::cout << "cte   " << cte << std::endl;
+		  std::cout << "epsi  " << epsi << std::endl;
 		  
 		  state << px, py, psi, v, cte, epsi;
 		  
