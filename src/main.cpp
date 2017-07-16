@@ -130,10 +130,10 @@ int main() {
 		 
 		  double Lf = 2.67;
 		  // predict state in 100ms
-		  psi = psi - v*delta/Lf*latency;
-		  v = v + acceleration*latency;
-		  px = 0 + v*cos(-delta)*latency;
-		  py = 0 + v*sin(-delta)*latency;
+		  //psi = psi - v*delta/Lf*latency;
+		  //v = v + acceleration*latency;
+		  //px = 0 + v*cos(-delta)*latency;
+		  //py = 0 + v*sin(-delta)*latency;
 
 		  state << px, py, psi, v, cte, epsi;
 		  
