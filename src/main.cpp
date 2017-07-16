@@ -135,11 +135,10 @@ int main() {
 		  //px = 0 + v*cos(-delta)*latency;
 		  //py = 0 + v*sin(-delta)*latency;
 		  
-		  //
-		  Eigen::VectorXd state(6);
+		  
           px = v * latency;
           py = 0;
-          psi = - v / 2.67 * delta * latency;
+          psi = - v / Lf * delta * latency;
 		  v = v + throttle * latency;
 
 		  state << px, py, psi, v, cte, epsi;
