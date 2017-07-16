@@ -127,8 +127,8 @@ int main() {
 		  //px = 0 + v*cos(-delta)*latency;
 		  //py = 0 + v*sin(-delta)*latency;
 		  
-          px = v * cos(-delta)*latency;
-          py = v * sin(-delta)*latency;
+          px = v * cos(delta)*latency;
+          py = v * sin(delta)*latency;
           psi = - v / Lf * delta * latency;
 		  v = v + throttle * latency;
 		  
