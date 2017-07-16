@@ -86,8 +86,8 @@ int main() {
         string event = j[0].get<string>();
         if (event == "telemetry") {
           // j[1] is the data JSON object
-          Eigen::VectorXd ptsx = j[1]["ptsx"];
-          Eigen::VectorXd ptsy = j[1]["ptsy"];
+          vector<double> ptsx = j[1]["ptsx"];
+          vector<double> ptsy = j[1]["ptsy"];
           double px = j[1]["x"];
           double py = j[1]["y"];
           double psi = j[1]["psi"];
@@ -99,10 +99,14 @@ int main() {
           * Both are in between [-1, 1].
           *
           */
+		  
+		  Eigen::VectorXd ptsx_n(ptsx.data());
+		  Eigen::VectorXd ptsy_n(ptsy.data());
+		  
           double steer_value;
           double throttle_value;
 		  
-		  auto coeffs = polyfit(ptsx, ptsy, 3);
+		  auto coeffs = polyfit(ptsx_n, ptsy_n, 3);
 		  
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
