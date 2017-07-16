@@ -10,7 +10,7 @@ size_t N = 25;
 double dt = 0.05;
 
 // Weights
-const double cte_weight = 100;
+const double cte_weight = 10;
 const double epsi_weight = 1;
 const double v_weight = 1;
 const double steer_weight = 1;
@@ -33,7 +33,7 @@ const double Lf = 2.67;
 
 // Both the reference cross track and orientation errors are 0.
 // The reference velocity is set to 40 mph.
-double ref_v = 50;
+double ref_v = 40;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish

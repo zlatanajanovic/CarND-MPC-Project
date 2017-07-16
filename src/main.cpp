@@ -121,15 +121,10 @@ int main() {
 		  Eigen::VectorXd state(6);
 		  
 		  double Lf = 2.67;
-		  // predict state in 100ms
-		  //psi = psi - v*delta/Lf*latency;
-		  //v = v + acceleration*latency;
-		  //px = 0 + v*cos(-delta)*latency;
-		  //py = 0 + v*sin(-delta)*latency;
-		  
-          psi = - v / Lf * delta * latency;
-          px = v *cos(-psi)* latency;
-          py = v*sin(-psi)*latency;
+		  // Latency compensation by predicting state
+          psi = v / Lf * delta * latency;
+          px = v *cos(psi)* latency;
+          py = v*sin(psi)*latency;
 		  v = v + throttle * latency;
 		  
 		  
@@ -138,7 +133,7 @@ int main() {
 		  double cte = polyeval(coeffs, px)-py;
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = - atan(coeffs[1])-psi;
+		  double epsi = - atan(coeffs[1])+psi;
 		  
 		  std::cout << "px    " << px << std::endl;
 		  std::cout << "py    " << py << std::endl;
