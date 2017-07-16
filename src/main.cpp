@@ -108,8 +108,8 @@ int main() {
           Eigen::VectorXd ptsx_n(len);
           Eigen::VectorXd ptsy_n(len);
           for(int i =0; i < len; i++){
-            ptsx_n[i] = cos(psi) * (ptsx[i] - px) + sin(psi) * (ptsy[i] - py);
-            ptsy_n[i] = -sin(psi) * (ptsx[i] - px) + cos(psi) * (ptsy[i] - py);
+            ptsx_n[i] = cos(0-psi) * (ptsx[i] - px) + sin(0-psi) * (ptsy[i] - py);
+            ptsy_n[i] = -sin(0-psi) * (ptsx[i] - px) + cos(0-psi) * (ptsy[i] - py);
           
 		  }	
 		  
