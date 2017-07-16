@@ -10,7 +10,7 @@ size_t N = 25;
 double dt = 0.05;
 
 // Weights
-const double cte_weight = 10;
+const double cte_weight = 100;
 const double epsi_weight = 1;
 const double v_weight = 1;
 const double steer_weight = 1;
