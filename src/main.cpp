@@ -93,7 +93,7 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
-		  double delta = -j[1]["steering_angle"];
+		  double delta = j[1]["steering_angle"];
 		  double acceleration = j[1]["throttle"];
 
           /*
@@ -130,7 +130,7 @@ int main() {
 		 
 		  double Lf = 2.67;
 		  // predict state in 100ms
-		  psi = psi + v*delta/Lf*latency;
+		  psi = psi - v*delta/Lf*latency;
 		  v = v + acceleration*latency;
 		  px = px + v*cos(psi)*latency;
 		  py = py + v*sin(psi)*latency;
