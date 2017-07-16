@@ -265,7 +265,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   auto cost = solution.obj_value;
   std::cout << "Cost " << cost << std::endl;
   
-  //? only actuator?
+  // X and Y values
   this->x_vals = {};
   this->y_vals = {};
   for(int i = 0; i < N; i++){
@@ -274,5 +274,5 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   }
 
   // Return the first actuator values 
-  return {solution[delta_start], solution[a_start]};
+  return {solution.x[delta_start], solution.x[a_start]};
 }
