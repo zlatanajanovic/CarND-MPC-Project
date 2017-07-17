@@ -122,15 +122,15 @@ int main() {
 		  
 		  double Lf = 2.67;
 		  // Latency compensation by predicting state
-          psi = -v*0.44704; / Lf * delta * latency;
-          px = v*0.44704; * cos(psi)* latency;
-          py = v *0.44704;* sin(psi)* latency;
+          psi = -v * 0.44704 / Lf * delta * latency;
+          px = v * 0.44704 * cos(psi)* latency;
+          py = v * 0.44704* sin(psi)* latency;
 		  v = v + throttle * latency;
 		  
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
-		  double cte = polyeval(coeffs, 0) + v *0.44704;* sin(- atan(coeffs[1])) * latency; //
+		  double cte = polyeval(coeffs, 0) + v * 0.44704 * sin(- atan(coeffs[1])) * latency; //
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
 		  double epsi = - atan(coeffs[1]) + psi;
