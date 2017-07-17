@@ -15,7 +15,7 @@ const double epsi_weight = 1;
 const double v_weight = 1;
 const double steer_weight = 1;
 const double throttle_weight = 1;
-const double change_steer_weight = 1000;
+const double change_steer_weight = 10000;
 const double change_throttle_weight = 10;
 
 
@@ -33,7 +33,7 @@ const double Lf = 2.67;
 
 // Both the reference cross track and orientation errors are 0.
 // The reference velocity is set to 40 mph.
-double ref_v = 70;
+double ref_v = 40;
 
 // The solver takes all the state variables and actuator
 // variables in a singular vector. Thus, we should to establish
