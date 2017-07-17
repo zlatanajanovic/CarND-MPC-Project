@@ -21,7 +21,7 @@ epsi[t+1] = psi[t] - psides[t] + v[t] * delta[t] / Lf * dt
 
 ### MPC tuning 
 I used these parameters of MPC:
-* N = 25 - horizon length
+* N = 20 - horizon length
 * dt = 0.05 - time step of planning
 These parameters are good tradeoff between computation time precision and horizon length. Horizon is long enough to cover curves and time step is enough small for this system dynamics. If N is too small, so called short sightedness can appear, which means that controller doesn't predict long enough in future. This is a problematic when there are curves especially when driving on high speed. dt depends on system dynamics and should be smaller for systems with faster response. Having smaller dt, N has to be increased to have enough horizon length, which increases computational effort.
 
