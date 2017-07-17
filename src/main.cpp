@@ -122,9 +122,9 @@ int main() {
 		  
 		  double Lf = 2.67;
 		  // Latency compensation by predicting state
-          //psi = -v * 0.44704 / Lf * delta * latency;
-          //px = v * 0.44704 * cos(psi)* latency;
-          //py = v * 0.44704* sin(psi)* latency;
+          psi = 0;//-v * 0.44704 / Lf * delta * latency;
+          px = v * 0.44704 * cos(psi)* latency;
+          py = v * 0.44704* sin(psi)* latency;
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
