@@ -6,7 +6,7 @@
 using CppAD::AD;
 
 // Set the timestep length and duration
-size_t N = 25;
+size_t N = 10;
 double dt = 0.05;
 
 // Weights
