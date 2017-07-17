@@ -12,10 +12,10 @@ double dt = 0.05;
 // Weights
 const double cte_weight = 10;
 const double epsi_weight = 1;
-const double v_weight = 1;
+const double v_weight = 100;
 const double steer_weight = 1;
 const double throttle_weight = 1;
-const double change_steer_weight = 10000;
+const double change_steer_weight = 100000;
 const double change_throttle_weight = 10;
 
 
