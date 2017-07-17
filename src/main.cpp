@@ -124,9 +124,7 @@ int main() {
 		  // Latency compensation by predicting state
           psi = -v * 0.44704 / Lf * delta * latency;
           px = v * 0.44704 * cos(psi)* latency;
-          py = v * 0.44704* sin(-psi)* latency;
-		  v = v + throttle * latency;
-		  
+          py = v * 0.44704* sin(psi)* latency;
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
@@ -134,6 +132,7 @@ int main() {
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
 		  double epsi = - atan(coeffs[1]) + psi;
+		  v = v + throttle * latency;
 		  
 		  std::cout << "px    " << px << std::endl;
 		  std::cout << "py    " << py << std::endl;
