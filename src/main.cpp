@@ -132,10 +132,10 @@ int main() {
 		  
 		  // The cross track error is calculated by evaluating at polynomial at x, f(x)
 		  // and subtracting y.
-		  double cte = polyeval(coeffs, px) - py + v *sin(-atan(coeffs[1])* latency);
+		  double cte = v *sin(-atan(coeffs[1])* latency);
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = - atan(coeffs[1])+psi;
+		  double epsi = - atan(coeffs[1]) + psi;
 		  
 		  std::cout << "px    " << px << std::endl;
 		  std::cout << "py    " << py << std::endl;
