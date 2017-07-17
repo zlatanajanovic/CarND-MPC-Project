@@ -124,7 +124,7 @@ int main() {
 		  // Latency compensation by predicting state
           psi = -v * 0.44704 / Lf * delta * latency;
           px = v * 0.44704 * cos(psi)* latency;
-          py = v * 0.44704* sin(psi)* latency;
+          py = v * 0.44704* sin(-psi)* latency;
 		  v = v + throttle * latency;
 		  
 		  
