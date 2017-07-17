@@ -6,7 +6,7 @@
 using CppAD::AD;
 
 // Set the timestep length and duration
-size_t N = 25;
+size_t N = 10;
 double dt = 0.05;
 
 // Weights
@@ -15,8 +15,8 @@ const double epsi_weight = 1;
 const double v_weight = 1;
 const double steer_weight = 1;
 const double throttle_weight = 1;
-const double change_steer_weight = 100000;
-const double change_throttle_weight = 100000;
+const double change_steer_weight = 10000;
+const double change_throttle_weight = 10000;
 
 
 // This value assumes the model presented in the classroom is used.
