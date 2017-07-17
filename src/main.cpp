@@ -99,7 +99,7 @@ int main() {
 		  v = 0.44704 *v;
 
           /*
-          * TODO: Calculate steering angle and throttle using MPC.
+          * Calculate steering angle and throttle using MPC.
           *
           * Both are in between [-1, 1].
           *
@@ -124,7 +124,7 @@ int main() {
 		  
 		  double Lf = 2.67;
 		  // Latency compensation by predicting state
-          psi = 0; //v / Lf * delta * latency;
+          psi = -v / Lf * delta * latency;
           px = v *cos(psi)* latency;
           py = v*sin(psi)*latency;
 		  v = v + throttle * latency;
