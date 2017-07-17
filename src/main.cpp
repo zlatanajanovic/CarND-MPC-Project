@@ -124,9 +124,9 @@ int main() {
 		  
 		  double Lf = 2.67;
 		  // Latency compensation by predicting state
-          psi = -v / Lf * delta * latency;
-          px = v *cos(psi)* latency;
-          py = v*sin(psi)*latency;
+          psi = 0;
+          px = v * latency;
+          py = 0;
 		  v = v + throttle * latency;
 		  
 		  
@@ -135,7 +135,7 @@ int main() {
 		  double cte = polyeval(coeffs, px)-py;
 		  // Due to the sign starting at 0, the orientation error is -f'(x).
 		  // derivative of coeffs[0] + coeffs[1] * x -> coeffs[1]
-		  double epsi = - atan(coeffs[1])+psi;
+		  double epsi = - atan(coeffs[1]);
 		  
 		  std::cout << "px    " << px << std::endl;
 		  std::cout << "py    " << py << std::endl;
